@@ -17,6 +17,15 @@ struct HomeView: View {
         Card(cardColor: Color("orange"), date: "Friday 12th November", title: "Neurobics for your \nmind.")
     ]
     
+    // Detail Hero Page
+    @State var showDetailPage: Bool = false
+    @State var currentCard: Card?
+    
+    // for Hero animation
+    // Using NameSpace
+    @Namespace var animation
+    
+    
     var body: some View {
         
         VStack {
@@ -56,7 +65,14 @@ struct HomeView: View {
                     
                     ForEach(cards) { card in
                         
-                        InfiniteStackedCardView(cards: $cards, card: card, trailingCardsToShown: trailingCardsToShown, trailingSpaceOfEachCards: trailingSpaceOfEachCards)
+                        InfiniteStackedCardView(cards: $cards, card: card, trailingCardsToShown: trailingCardsToShown, trailingSpaceOfEachCards: trailingSpaceOfEachCards, animation: animation, showDetailPage: $showDetailPage)
+                        // Setting on Tap
+                            .onTapGesture {
+                                withAnimation(.spring()) {
+                                    currentCard = card
+                                    showDetailPage = true
+                                }
+                            }
                     }
                 }
                 .padding(.leading, 10)
@@ -74,6 +90,57 @@ struct HomeView: View {
         .padding()
         // Moving view to Top without using Spacers
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .overlay(DetailPage())
+    }
+    
+    @ViewBuilder
+    func DetailPage() -> some View {
+        
+        if let currentCard = currentCard, showDetailPage {
+            
+            Rectangle()
+                .fill(currentCard.cardColor)
+                .matchedGeometryEffect(id: currentCard.id, in: animation)
+                .ignoresSafeArea()
+            
+            VStack(alignment: .leading, spacing: 15) {
+                
+                // Close Button
+                Button {
+                    withAnimation {
+                        // Closing view
+                        showDetailPage = false
+                    }
+                } label: {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.black)
+                        .padding(10)
+                        .background(Color.white.opacity(0.6))
+                        .clipShape(Circle())
+                }
+                // Moving button to left without Spacers
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text(currentCard.date)
+                    .font(.callout)
+                    .fontWeight(.semibold)
+                    .padding(.top)
+                
+                Text(currentCard.title)
+                    .font(.title.bold())
+                    
+                ScrollView(.vertical, showsIndicators: false) {
+                    
+                    // Sample Content
+                    Text(content)
+                        .padding(.top)
+                }
+            }
+            .foregroundColor(.white)
+            .padding()
+            // Moving button to top without Spacers
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        }
     }
 }
 
@@ -89,6 +156,10 @@ struct InfiniteStackedCardView: View {
     var card: Card
     var trailingCardsToShown: CGFloat
     var trailingSpaceOfEachCards: CGFloat
+    
+    // for Hero animation
+    var animation: Namespace.ID
+    @Binding var showDetailPage: Bool
     
     // Gesture Propertiee
     // Used to tell whether user is Dragging Cards
@@ -127,8 +198,26 @@ struct InfiniteStackedCardView: View {
         // Giving Background Color
         .background(
         
-            RoundedRectangle(cornerRadius: 25)
-                .fill(card.cardColor)
+            ZStack {
+                
+                // Hiding original Content
+                // to avois warning
+                // When MatchedGeometry Effect Animating
+                
+                // Matched Geometry effect not animating smoothly when we hide the original content
+                // don't avoid original content if you want smooth animation
+//                RoundedRectangle(cornerRadius: 25)
+//                    .fill(card.cardColor)
+                
+                if showDetailPage {
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(Color.clear)
+                } else {
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(card.cardColor)
+                        .matchedGeometryEffect(id: card.id, in: animation)
+                }
+            }
         )
         .padding(.trailing, -getPadding())
         // Applying vertical padding
@@ -228,3 +317,5 @@ struct InfiniteStackedCardView: View {
         return CGFloat(index)
     }
 }
+
+let content = "When the user taps in an editable text view, that text view becomes the first responder and automatically asks the system to display the associated keyboard. Because the appearance of the keyboard has the potential to obscure portions of your user interface, it is up to you to make sure that does not happen by repositioning any views that might be obscured. Some system views, like table views, help you by scrolling the first responder into view automatically. If the first responder is at the bottom of the scrolling region, however, you may still need to resize or reposition the scroll view itself to ensure the first responder is visible.\n \nIt is your application’s responsibility to dismiss the keyboard at the time of your choosing. You might dismiss the keyboard in response to a specific user action, such as the user tapping a particular button in your user interface. To dismiss the keyboard, send the resignFirstResponder() message to the text view that is currently the first responder. Doing so causes the text view object to end the current editing session (with the delegate object’s consent) and hide the keyboard.\n \nThe appearance of the keyboard itself can be customized using the properties provided by the UITextInputTraits protocol. Text view objects implement this protocol and support the properties it defines. You can use these properties to specify the type of keyboard (ASCII, Numbers, URL, Email, and others) to display. You can also configure the basic text entry behavior of the keyboard, such as whether it supports automatic capitalization and correction of the text."
