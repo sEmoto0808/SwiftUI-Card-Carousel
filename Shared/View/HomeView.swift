@@ -18,8 +18,34 @@ struct HomeView: View {
     ]
     
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        
+        VStack {
+            
+            // Title
+            HStack(alignment: .bottom) {
+                
+                VStack(alignment: .leading) {
+                    
+                    Text("9TH OF NOV")
+                        .font(.largeTitle.bold())
+                    
+                    Label {
+                        Text("Tokyo, Japan")
+                    } icon: {
+                        Image(systemName: "location.circle")
+                    }
+                }
+                
+                Spacer()
+                
+                Text("Updated 1:30 PM")
+                    .font(.caption2)
+                    .fontWeight(.light)
+            }
+        }
+        .padding()
+        // Moving view to Top without using Spacers
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 }
 
