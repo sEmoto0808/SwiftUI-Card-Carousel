@@ -137,6 +137,7 @@ struct InfiniteStackedCardView: View {
         // since we use ZStack all cards are reversed
         // Simply undoing with the help of ZIndex
         .zIndex(Double(cards.count - Int(getIndex())))
+        .rotationEffect(.init(degrees: getRotation(angle: 10)))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
         .offset(x: offset)
@@ -160,13 +161,50 @@ struct InfiniteStackedCardView: View {
                 })
                 .onEnded({ value in
                     
-                    withAnimation {
-                        offset = .zero
+                    // Checking if card is swiped more than width
+                    let width = UIScreen.main.bounds.width
+                    let cardPassed = -offset > (width / 2)
+                    
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        
+                        if cardPassed {
+                            offset = -width
+                            removeAndPutBack()
+                        } else {
+                            offset = .zero
+                        }
                     }
                 })
         )
     }
     
+    // Removing Card from first and putting it back at least so it lools like infinite stacked carousel without using Memory
+    func removeAndPutBack() {
+        
+        // Removing card after animation finished
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            
+            // Updating card id
+            // to avoid ForEach Warning
+            let updatedCard = Card(cardColor: card.cardColor, date: card.date, title: card.title)
+            
+            cards.append(updatedCard)
+            
+            withAnimation {
+                // Removing first card
+                cards.removeFirst()
+            }
+        }
+    }
+    
+    // Rotating Card whilr dragging
+    func getRotation(angle: Double) -> Double {
+        // Removing Paddings
+        let width = UIScreen.main.bounds.width - 50
+        let progress = offset / width
+        
+        return Double(progress) * angle
+    }
     
     func getPadding() -> CGFloat {
         
