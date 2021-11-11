@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A18DA03273D3D5700A6D349 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A18DA02273D3D5700A6D349 /* Card.swift */; };
 		9AD13102273D36F3007D2322 /* swiftui_card_carousel_sampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD130F2273D36F2007D2322 /* swiftui_card_carousel_sampleApp.swift */; };
 		9AD13103273D36F3007D2322 /* swiftui_card_carousel_sampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD130F2273D36F2007D2322 /* swiftui_card_carousel_sampleApp.swift */; };
 		9AD13104273D36F3007D2322 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD130F3273D36F2007D2322 /* ContentView.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A18DA02273D3D5700A6D349 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		9AD130F2273D36F2007D2322 /* swiftui_card_carousel_sampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftui_card_carousel_sampleApp.swift; sourceTree = "<group>"; };
 		9AD130F3273D36F2007D2322 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9AD130F4273D36F3007D2322 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -42,6 +44,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A18DA00273D3D3900A6D349 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9A18DA01273D3D4400A6D349 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9A18DA02273D3D5700A6D349 /* Card.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9AD130EC273D36F2007D2322 = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +71,8 @@
 		9AD130F1273D36F2007D2322 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9A18DA01273D3D4400A6D349 /* Model */,
+				9A18DA00273D3D3900A6D349 /* View */,
 				9AD130F2273D36F2007D2322 /* swiftui_card_carousel_sampleApp.swift */,
 				9AD130F3273D36F2007D2322 /* ContentView.swift */,
 				9AD130F4273D36F3007D2322 /* Assets.xcassets */,
@@ -177,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AD13104273D36F3007D2322 /* ContentView.swift in Sources */,
+				9A18DA03273D3D5700A6D349 /* Card.swift in Sources */,
 				9AD13102273D36F3007D2322 /* swiftui_card_carousel_sampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
