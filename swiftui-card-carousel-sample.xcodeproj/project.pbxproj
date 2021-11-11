@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A18DA03273D3D5700A6D349 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A18DA02273D3D5700A6D349 /* Card.swift */; };
+		9A18DA05273D3ECC00A6D349 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A18DA04273D3ECC00A6D349 /* HomeView.swift */; };
 		9AD13102273D36F3007D2322 /* swiftui_card_carousel_sampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD130F2273D36F2007D2322 /* swiftui_card_carousel_sampleApp.swift */; };
 		9AD13103273D36F3007D2322 /* swiftui_card_carousel_sampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD130F2273D36F2007D2322 /* swiftui_card_carousel_sampleApp.swift */; };
 		9AD13104273D36F3007D2322 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD130F3273D36F2007D2322 /* ContentView.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		9A18DA02273D3D5700A6D349 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		9A18DA04273D3ECC00A6D349 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9AD130F2273D36F2007D2322 /* swiftui_card_carousel_sampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftui_card_carousel_sampleApp.swift; sourceTree = "<group>"; };
 		9AD130F3273D36F2007D2322 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9AD130F4273D36F3007D2322 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 		9A18DA00273D3D3900A6D349 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9A18DA04273D3ECC00A6D349 /* HomeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 			files = (
 				9AD13104273D36F3007D2322 /* ContentView.swift in Sources */,
 				9A18DA03273D3D5700A6D349 /* Card.swift in Sources */,
+				9A18DA05273D3ECC00A6D349 /* HomeView.swift in Sources */,
 				9AD13102273D36F3007D2322 /* swiftui_card_carousel_sampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
