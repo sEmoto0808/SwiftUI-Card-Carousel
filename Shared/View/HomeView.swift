@@ -90,6 +90,12 @@ struct InfiniteStackedCardView: View {
     var trailingCardsToShown: CGFloat
     var trailingSpaceOfEachCards: CGFloat
     
+    // Gesture Propertiee
+    // Used to tell whether user is Dragging Cards
+    @GestureState var isDragging: Bool = false
+    // Used to store offset
+    @State var offset: CGFloat = .zero
+    
     var body: some View {
         
         VStack(alignment: .leading, spacing: 15) {
@@ -132,6 +138,33 @@ struct InfiniteStackedCardView: View {
         // Simply undoing with the help of ZIndex
         .zIndex(Double(cards.count - Int(getIndex())))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .contentShape(Rectangle())
+        .offset(x: offset)
+        .gesture(
+            DragGesture()
+                .updating($isDragging, body: { _, out, _ in
+                    out = true
+                })
+                .onChanged({ value in
+                    
+                    var translation = value.translation.width
+                    // Applying Translation for only First card to avoid dragging bottom Cards
+                    translation = cards.first?.id == card.id ? translation : 0
+                    // Applying dragging only if its dragged
+                    translation = isDragging ? translation : 0
+                    
+                    // Stopping right Swipe
+                    translation = translation < 0 ? translation : 0
+                    
+                    offset = translation
+                })
+                .onEnded({ value in
+                    
+                    withAnimation {
+                        offset = .zero
+                    }
+                })
+        )
     }
     
     
